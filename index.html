@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thongchai Tantawat</title>
+    <title>โปรไฟล์ของ ธงชัย ตัณฑวัฒน์</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,6 +56,27 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 10px rgba(199, 146, 234, 0.2);
         }
+        /* Hamburger Animation Styles */
+        .hamburger-line {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: currentColor;
+            border-radius: 9999px;
+            transition: all 0.3s ease-in-out;
+        }
+        #mobile-menu-button.menu-open .hamburger-line:nth-child(2) { /* Top line */
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+        }
+        #mobile-menu-button.menu-open .hamburger-line:nth-child(3) { /* Middle line */
+            opacity: 0;
+        }
+        #mobile-menu-button.menu-open .hamburger-line:nth-child(4) { /* Bottom line */
+            top: 50%;
+            transform: translateY(-50%) rotate(-45deg);
+        }
     </style>
 </head>
 <body class="leading-relaxed">
@@ -72,8 +93,11 @@
                 <a href="#projects" class="hover:text-variable transition-colors duration-200">/projects</a>
                 <a href="#contact" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-200">contact()</a>
             </div>
-            <button id="mobile-menu-button" class="md:hidden text-white">
-                <i data-feather="menu"></i>
+            <button id="mobile-menu-button" class="md:hidden text-white w-8 h-8 relative focus:outline-none">
+                <span class="sr-only">Toggle Menu</span>
+                <span class="hamburger-line top-[25%]"></span>
+                <span class="hamburger-line top-[50%] -translate-y-1/2"></span>
+                <span class="hamburger-line top-[75%] -translate-y-1/2"></span>
             </button>
         </div>
         <!-- Mobile Menu -->
@@ -91,7 +115,7 @@
     <div class="container mx-auto px-6 py-12 md:py-20">
 
         <!-- Hero Section -->
-        <header class="text-center min-h-[40vh] flex flex-col justify-center items-center">
+        <header class="text-center min-h-[60vh] flex flex-col justify-center items-center">
             <div class="w-full max-w-3xl">
                 <div class="rounded-lg shadow-2xl overflow-hidden border border-gray-700">
                     <div class="terminal-header p-3 flex items-center">
@@ -102,7 +126,7 @@
                         </div>
                         <p class="flex-grow text-center text-sm text-gray-400 font-fira">/bin/bash</p>
                     </div>
-                    <div class="terminal-body p-8 text-left font-fira text-sm md:text-base">
+                    <div class="terminal-body p-4 md:p-8 text-left font-fira text-sm md:text-base">
                         <p><span class="text-green-400">user@portfolio</span><span class="text-white">:</span><span class="text-blue-400">~</span>$ <span id="typewriter" class="text-white cursor"></span></p>
                     </div>
                 </div>
@@ -347,12 +371,14 @@
         const mobileMenu = document.getElementById('mobile-menu');
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
+            mobileMenuButton.classList.toggle('menu-open');
         });
         
         // Close mobile menu on link click
         document.querySelectorAll('#mobile-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
+                mobileMenuButton.classList.remove('menu-open');
             });
         });
 
